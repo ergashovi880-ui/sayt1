@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: biznes-ai-crm
+    runtime: python
+    buildCommand: ""
+    startCommand: python3 app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: APP_BASE_URL
+        sync: false
