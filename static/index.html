@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiznesAI — Mahalliy bizneslar uchun AI + CRM SaaS</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">AI</span>
+        <div>
+          <strong>BiznesAI Platforma</strong>
+          <small>Oylik obunaga sotiladigan tayyor SaaS</small>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Bo'limlar">
+        <button class="tab-btn active" data-tab="client">Mijoz Sayti (Demo)</button>
+        <button class="tab-btn" data-tab="admin">Admin CRM <span id="pendingBadge" class="pill-count">0</span></button>
+        <button class="tab-btn" data-tab="pricing">Daromad &amp; Tariflar</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="niche-bar">
+    <div class="container niche-inner">
+      <span class="niche-label">Mijozga ko'rsatish uchun shablon:</span>
+      <div class="niche-pills">
+        <button class="niche-btn active" data-niche="salon">Go'zallik saloni</button>
+        <button class="niche-btn" data-niche="cafe">Kafe &amp; Yetkazib berish</button>
+        <button class="niche-btn" data-niche="center">O'quv markazi</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="container main-content">
+    <!-- TAB 1: CLIENT STOREFRONT + AI ASSISTANT -->
+    <section id="tab-client" class="tab-panel active">
+      <div class="hero card">
+        <div>
+          <span id="bizNicheLabel" class="tag">Go'zallik saloni</span>
+          <h1 id="bizName">Malika Beauty Studio</h1>
+          <p id="bizTagline" class="subtitle"></p>
+          <div class="biz-meta">
+            <span id="bizHours"></span>
+            <span id="bizAddress"></span>
+            <span id="bizPhone"></span>
+          </div>
+        </div>
+        <a href="#bookingBox" class="btn btn-primary">Onlayn yozilish</a>
+      </div>
+
+      <div class="grid-2">
+        <div class="stack">
+          <div class="card">
+            <div class="card-head">
+              <h2>Xizmatlar va narxlar</h2>
+              <span class="muted">Tanlash tugmasi formani to'ldiradi</span>
+            </div>
+            <div id="servicesGrid" class="services-list"></div>
+          </div>
+
+          <div id="bookingBox" class="card">
+            <div class="card-head">
+              <h2>Tezkor buyurtma / bron</h2>
+              <span class="muted">Darhol Admin CRM ga tushadi</span>
+            </div>
+            <form id="orderForm" class="form-grid">
+              <label>
+                Ismingiz
+                <input type="text" name="customer_name" required placeholder="Masalan: Jasur Aliyev" />
+              </label>
+              <label>
+                Telefon raqam
+                <input type="tel" name="customer_phone" required placeholder="+998 90 123 45 67" />
+              </label>
+              <label>
+                Xizmatni tanlang
+                <select id="serviceSelect" name="service_id"></select>
+              </label>
+              <label>
+                Qulay vaqt
+                <input type="text" name="preferred_time" placeholder="Bugun, 16:30" />
+              </label>
+              <label class="full">
+                Qo'shimcha izoh
+                <input type="text" name="notes" placeholder="Masalan: ustaga alohida eslatma..." />
+              </label>
+              <div class="full form-actions">
+                <button type="submit" class="btn btn-primary">Buyurtma yuborish</button>
+                <span id="orderStatusMsg" class="status-msg"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <aside class="card chat-card">
+          <div class="card-head">
+            <div>
+              <h2>24/7 AI Maslahatchi</h2>
+              <small id="aiModeLabel" class="muted">O'zbek tilidagi aqlli yordamchi</small>
+            </div>
+            <span class="online-dot">Online</span>
+          </div>
+
+          <div id="chatMessages" class="chat-messages"></div>
+
+          <div class="quick-prompts">
+            <button type="button" class="chip" data-prompt="Narxlar qancha?">Narxlar qancha?</button>
+            <button type="button" class="chip" data-prompt="Ish vaqti va manzil qayerda?">Ish vaqti va manzil</button>
+            <button type="button" class="chip" data-prompt="Qanday qilib bron qilsam bo'ladi?">Qanday bron qilinadi?</button>
+          </div>
+
+          <form id="chatForm" class="chat-input-row">
+            <input id="chatInput" type="text" required placeholder="Savolingizni yozing..." />
+            <button type="submit" class="btn btn-primary">Yuborish</button>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <!-- TAB 2: ADMIN CRM -->
+    <section id="tab-admin" class="tab-panel">
+      <div class="kpi-grid">
+        <div class="card kpi">
+          <span class="muted">Jami buyurtmalar</span>
+          <strong id="kpiTotal">0</strong>
+        </div>
+        <div class="card kpi">
+          <span class="muted">Yangi (kutilayotgan)</span>
+          <strong id="kpiPending">0</strong>
+        </div>
+        <div class="card kpi">
+          <span class="muted">Tasdiqlangan mijoz tushumi</span>
+          <strong id="kpiRevenue">0 so'm</strong>
+        </div>
+        <div class="card kpi">
+          <span class="muted">SaaS obuna daromadingiz</span>
+          <strong id="kpiSubRevenue">0 so'm</strong>
+        </div>
+      </div>
+
+      <div class="grid-admin">
+        <div class="card">
+          <div class="card-head">
+            <h2>Mijoz buyurtmalari (CRM)</h2>
+            <span class="muted">Statusni bir bosishda o'zgartiring</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mijoz</th>
+                  <th>Xizmat</th>
+                  <th>Vaqt</th>
+                  <th>Narx</th>
+                  <th>Holat</th>
+                  <th>Amal</th>
+                </tr>
+              </thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2>Yangi xizmat qo'shish</h2>
+          </div>
+          <form id="serviceForm" class="stack-sm">
+            <label>
+              Xizmat nomi
+              <input type="text" name="name" required placeholder="Masalan: VIP Soqol olish" />
+            </label>
+            <label>
+              Narxi (so'mda)
+              <input type="number" name="price_uzs" min="0" step="1000" required placeholder="120000" />
+            </label>
+            <label>
+              Davomiyligi (daqiqa)
+              <input type="number" name="duration_min" min="5" value="45" required />
+            </label>
+            <label>
+              Qisqa tavsif
+              <input type="text" name="description" placeholder="Xizmat haqida qisqacha" />
+            </label>
+            <button type="submit" class="btn btn-primary">Xizmat qo'shish</button>
+            <span id="serviceStatusMsg" class="status-msg"></span>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: MONETIZATION / PRICING / CLICK & PAYME -->
+    <section id="tab-pricing" class="tab-panel">
+      <div class="card monetization-banner">
+        <div>
+          <span class="tag">Sizning daromad modelingiz</span>
+          <h2>Bu saytni mahalliy bizneslarga oylik obunaga soting</h2>
+          <p class="subtitle">
+            O'zbekistonda minglab go'zallik salonlari, kafelar, stomatologiyalar va o'quv markazlari hali ham faqat Instagram DM da javob beradi.
+            Siz ularga tayyor AI maslahatchi + onlayn bron + CRM tizimini 1 kunda ulab berib, har biridan oyiga <strong>199 000 – 799 000 so'm</strong> olishingiz mumkin.
+            Masalan, 20 ta faol mijoz × 399 000 so'm = <strong>7 980 000 so'm/oy barqaror daromad</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Obuna to'lovini tekshirish (Click / Payme Demo)</h2>
+          <span class="muted">Mijoz biznes nomini yozib to'lov havolasini yaratadi</span>
+        </div>
+        <div class="checkout-bar">
+          <input id="checkoutBizName" type="text" placeholder="Mijoz biznesi nomi (masalan: Baraka Oshxonasi)" />
+          <div class="provider-switch">
+            <label><input type="radio" name="provider" value="click" checked /> Click</label>
+            <label><input type="radio" name="provider" value="payme" /> Payme</label>
+          </div>
+        </div>
+        <div id="plansGrid" class="plans-grid"></div>
+        <div id="checkoutResult" class="checkout-result hidden"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Obuna to'lovlari tarixi</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice</th>
+                <th>Biznes</th>
+                <th>Tarif</th>
+                <th>Tizim</th>
+                <th>Summa</th>
+                <th>Holat</th>
+                <th>Demo tasdiqlash</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
